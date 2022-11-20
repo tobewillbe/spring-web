@@ -4,7 +4,6 @@ import lombok.*;
 
 
 @Setter @Getter @ToString
-@NoArgsConstructor
 @AllArgsConstructor
 //역할 : 하나의 할일 데이터의 집합 객체
 public class Todo {
@@ -14,5 +13,15 @@ public class Todo {
     private String title; // 할일내용
     private boolean finish; // 할일완료여부
 
+    private static long seq;
+    public Todo() {
+        this.id = ++seq;
+    }
 
+    public Todo(String title)
+    {
+        this();
+        this.title = title;
+        this.userId = "noname";
+    }
 }

@@ -24,7 +24,7 @@ public interface TodoRepository {
     // 할일 개별조회기능
     /**
      *
-     * @param Id -할일의 ID를 입력
+     * @param id -할일의 ID를 입력
      * @return - 할 일을 Todo형태로 받아옴
      */
     Todo view_one(Long id);
@@ -32,7 +32,7 @@ public interface TodoRepository {
     // 할일 삭제기능
     /**
      *
-     * @param todo - 삭제하고자 하는 일의 ID를 입력
+     * @param id - 삭제하고자 하는 일의 ID를 입력
      * @return -  삭제시 true 실패시 false
      */
     boolean delete(Long id);

@@ -30,7 +30,12 @@ public class RestJsonController {
 
     @PutMapping("/bbs")
     public void bbs(@RequestBody Article article){
-        log.info("/json/bbs PUT requets! ={}", article);
+        log.info("/json/bbs PUT requests! ={}", article);
+    }
+
+    @DeleteMapping("/bbs-list")
+    public void bbsList(@RequestBody List<Article> article){
+        log.info("/json/bbs-list DELETE requests! ={}", article);
     }
 
     @Setter @Getter @ToString

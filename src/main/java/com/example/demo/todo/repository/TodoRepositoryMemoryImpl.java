@@ -20,9 +20,9 @@ public class TodoRepositoryMemoryImpl implements TodoRepository {
     private static final Map<Long,Todo> todoMap = new HashMap<>();
 
     static {
-        todoMap.put(1L,new Todo(1L, "김철수", "저녁밥만들기", false));
-        todoMap.put(2L,new Todo(2L, "박영희", "산책가기", false));
-        todoMap.put(3L,new Todo(3L, "김철수", "노래연습하기", true));
+        todoMap.put(1L,new Todo("저녁밥만들기"));
+        todoMap.put(2L,new Todo("산책가기"));
+        todoMap.put(3L,new Todo("노래연습하기"));
     }
 
     @Override
