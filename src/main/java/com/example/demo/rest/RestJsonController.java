@@ -1,5 +1,6 @@
 package com.example.demo.rest;
 
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,8 +23,24 @@ public class RestJsonController {
      */
 
     @PostMapping("/major")
-    public List<String> major(@RequestBody String nickName){
-        log.info("/json/major POST request! - {}", nickName);
+    public List<String> major(@RequestBody List<String> majorList){
+        log.info("/json/major POST request! - {}", majorList);
         return null;
+    }
+
+    @PutMapping("/bbs")
+    public void bbs(@RequestBody Article article){
+        log.info("/json/bbs PUT requets! ={}", article);
+    }
+
+    @Setter @Getter @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Article{
+
+        private long id;
+        private String title;
+        private String content;
+        private String writer;
     }
 }
