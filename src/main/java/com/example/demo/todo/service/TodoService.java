@@ -49,13 +49,13 @@ public class TodoService {
     }
 
     public ListAllDTO delete(long id) {
-        if (id==0){
-            log.warn("id cannot be null!");
-            throw new RuntimeException("id cannot be null!");
-        }
-
         boolean flag = repository.delete(id);
-        if(flag) log.info("새로운 할일 id:{}가 삭제되었습니다.",id);
+
+        if(!flag){
+            log.warn("delete fail!! not found id[{}]", id);
+            throw new RuntimeException("delete fail!");
+        }
+        else log.info("새로운 할일 id:{}가 삭제되었습니다.",id);
         return listAllServ();
     }
 }
