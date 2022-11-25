@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RequestMapping("/api/todos")
 @RequiredArgsConstructor
+@CrossOrigin // 다른 서버의 요청 허용
 public class TodoApiController {
 
     private final TodoService service;
@@ -43,9 +44,15 @@ public class TodoApiController {
     // 할 일 개별 조회 요청
     // URI: /api/todos/3 :GET => 3번 할 일 만 조회해서 클라이언트에게 리턴
     @GetMapping("/{id}")
-    public ResponseEntity<?> gets(@PathVariable long id ){
+    public ResponseEntity<?> gets(@PathVariable Long id ){
         log.info("/api/todos/{} GET request!", id);
-        return ResponseEntity.ok().body(service.view_one(id));
+
+        if (id == null || id < 0) return ResponseEntity.badRequest().build();
+        try {
+            return ResponseEntity.ok().body(service.view_one(id));
+        }catch (Exception e){
+            return ResponseEntity.notFound().build();
+        }
     }
 
     // 할 일 삭제 요청
@@ -53,6 +60,10 @@ public class TodoApiController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable long id){
         log.info("/api/todos/{} DELETE request!", id);
-        return  ResponseEntity.ok().body(service.delete(id));
+        try{
+            return ResponseEntity.ok().body(service.delete(id));
+        }catch (Exception e){
+            return ResponseEntity.notFound().build();
+        }
     }
 }
