@@ -53,6 +53,12 @@ public class TodoApiController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable long id){
         log.info("/api/todos/{} DELETE request!", id);
-        return  ResponseEntity.ok().body(service.delete(id));
+        try{
+            return ResponseEntity.ok().body(service.delete(id));
+        }catch (Exception e){
+            return ResponseEntity.notFound().build();
+        }
+
+
     }
 }
