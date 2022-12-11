@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.todo.repository.TodoRepository">
+
+    <insert id="insert">
+        INSERT INTO tbl_todo
+            (id, userId, title, done, regDate)
+        VALUES
+            (#{id}, #{userId}, #{title}, #{finish}, #{regDate})
+
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM tbl_todo
+        WHERE id=#{id}
+    </delete>
+
+    <select id="list_all" resultType="com.example.demo.todo.entity.Todo">
+        SELECT id, userId, title, done, regDate
+        FROM tbl_todo
+        ORDER BY regDate
+    </select>
+
+    <select id="view_one" resultType="com.example.demo.todo.entity.Todo">
+        SELECT id, userId, title, done
+        FROM tbl_todo
+        WHERE id=#{id}
+    </select>
+
+    <update id="modify">
+        UPDATE tbl_todo
+        SET done=#{finish}, title=#{title}
+        WHERE id=#{id}
+    </update>
+
+</mapper>

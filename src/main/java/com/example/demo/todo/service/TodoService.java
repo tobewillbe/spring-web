@@ -39,16 +39,16 @@ public class TodoService {
         return flag ? listAllServ() : null;
     }
 
-    public TodoDTO view_one(final long id) {
+    public TodoDTO view_one(final String id) {
 
-        if (id==0){
+        if (id==null){
             log.warn("id cannot be null!");
             throw new RuntimeException("id cannot be null!");
         }
         return new TodoDTO(repository.view_one(id));
     }
 
-    public ListAllDTO delete(long id) {
+    public ListAllDTO delete(String id) {
         boolean flag = repository.delete(id);
 
         //삭제 실패할경우
@@ -57,5 +57,11 @@ public class TodoService {
             throw new RuntimeException("delete fail!");
         }
         return listAllServ();
+    }
+    public ListAllDTO update(Todo toDo) {
+
+        boolean flag = repository.modify(toDo);
+
+        return flag ? listAllServ() : new ListAllDTO();
     }
 }

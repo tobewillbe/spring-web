@@ -1,9 +1,11 @@
 package com.example.demo.todo.repository;
 
 import com.example.demo.todo.entity.Todo;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
+@Mapper
 // 역할 : 할 일 데이터를 CRUD한다.(생성, 조회, 수정, 삭제)
 public interface TodoRepository {
     // 할일 생성기능
@@ -27,7 +29,7 @@ public interface TodoRepository {
      * @param id -할일의 ID를 입력
      * @return - 할 일을 Todo형태로 받아옴
      */
-    Todo view_one(Long id);
+    Todo view_one(String id);
 
     // 할일 삭제기능
     /**
@@ -35,5 +37,13 @@ public interface TodoRepository {
      * @param id - 삭제하고자 하는 일의 ID를 입력
      * @return -  삭제시 true 실패시 false
      */
-    boolean delete(Long id);
+    boolean delete(String id);
+
+    // 할일 수정기능
+    /**
+     *
+     * @param todo - 할 일 데이터의 집합
+     * @return -  삭제시 true 실패시 false
+     */
+    boolean modify(Todo todo);
 }

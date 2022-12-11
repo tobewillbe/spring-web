@@ -27,7 +27,7 @@ public class TodoApiController {
     @PostMapping
     public ResponseEntity<?> create(@RequestBody Todo newTodo){
         newTodo.setUserId("noname");
-        log.info("/api POST request!-{}", newTodo);
+        log.info("/api/todos POST request!-{}", newTodo);
 
         try{
             ListAllDTO dto = service.createServ(newTodo);
@@ -44,10 +44,10 @@ public class TodoApiController {
     // 할 일 개별 조회 요청
     // URI: /api/todos/3 :GET => 3번 할 일 만 조회해서 클라이언트에게 리턴
     @GetMapping("/{id}")
-    public ResponseEntity<?> gets(@PathVariable Long id ){
+    public ResponseEntity<?> gets(@PathVariable String id ){
         log.info("/api/todos/{} GET request!", id);
 
-        if (id == null || id < 0) return ResponseEntity.badRequest().build();
+        if (id == null) return ResponseEntity.badRequest().build();
         try {
             return ResponseEntity.ok().body(service.view_one(id));
         }catch (Exception e){
@@ -58,12 +58,27 @@ public class TodoApiController {
     // 할 일 삭제 요청
     // URI : /api/todos/3 :DELETE => 3번 할 일만 삭제된 이후 갱신된 할 일 목록 리턴
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable long id){
+    public ResponseEntity<?> delete(@PathVariable String id){
         log.info("/api/todos/{} DELETE request!", id);
         try{
             return ResponseEntity.ok().body(service.delete(id));
         }catch (Exception e){
             return ResponseEntity.notFound().build();
         }
+    }
+
+    // 할일 수정 요청
+    @PutMapping
+    public ResponseEntity<?> update(@RequestBody Todo toDo) {
+
+        log.info("/api/todos PUT request! - {}", toDo);
+
+        try {
+            ListAllDTO dtos = service.update(toDo);
+            return ResponseEntity.ok().body(dtos);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+
     }
 }
