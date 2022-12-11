@@ -23,6 +23,7 @@ public class TodoRepositoryMemoryImpl implements TodoRepository {
         todoMap.put(1L,new Todo("저녁밥만들기"));
         todoMap.put(2L,new Todo("산책가기"));
         todoMap.put(3L,new Todo("노래연습하기"));
+        todoMap.put(4L,new Todo("리엑트 컴포넌트 만들기"));
     }
 
     @Override
