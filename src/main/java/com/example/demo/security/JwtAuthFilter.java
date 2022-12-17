@@ -28,30 +28,31 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         // 요청에서 토큰 가져오기
-        String token = parseBearerToken(request);
-        log.info("Token Filter is running.... - token: {}", token);
+        try {
+            String token = parseBearerToken(request);
+            log.info("Token Filter is running.... - token: {}", token);
 
-        // 토큰 검사하기
-        if (token != null && !token.equalsIgnoreCase("null")) {
-            // userId가져오기. 위조된 경우 예외가 발생한다.
-            String userId = tokenProvider.validateAndGetUserId(token);
-            log.info("인증된 user id : {}", userId);
+            // 토큰 검사하기
+            if (token != null && !token.equalsIgnoreCase("null")) {
+                // userId가져오기. 위조된 경우 예외가 발생한다.
+                String userId = tokenProvider.validateAndGetUserId(token);
+                log.info("인증된 user id : {}", userId);
 
-            // 인증 완료!! api서버에서는 SecurityContextHolder에 등록해야 인증된 사용자라고 생각한다.
-            AbstractAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                    userId,
-                    null,
-                    AuthorityUtils.NO_AUTHORITIES
-            );
-            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-            securityContext.setAuthentication(authentication);
+                // 인증 완료!! api서버에서는 SecurityContextHolder에 등록해야 인증된 사용자라고 생각한다.
+                AbstractAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                        userId,
+                        null,
+                        AuthorityUtils.NO_AUTHORITIES
+                );
+                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+                securityContext.setAuthentication(authentication);
 
-            SecurityContextHolder.setContext(securityContext);
-        }
+                SecurityContextHolder.setContext(securityContext);
+            }
 
     } catch (Exception e) {
-        log.error("Could not set user authentication in security context", e);
+        log.error("Could not set user authentication in security context",e);
     }
 
     // 필터체인에 연결한다.

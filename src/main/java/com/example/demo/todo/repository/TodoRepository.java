@@ -21,7 +21,7 @@ public interface TodoRepository {
      *
      * @return - 할일을 리스트로 받아옴
      */
-    List<Todo> list_all();
+    List<Todo> list_all(String userId);
 
     // 할일 개별조회기능
     /**

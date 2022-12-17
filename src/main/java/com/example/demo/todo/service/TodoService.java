@@ -23,11 +23,11 @@ public class TodoService {
         2. 할 일 목록의 카운트를 세서 따로 추가해서 전달한다.
      */
 
-    public ListAllDTO listAllServ(){
-        return new ListAllDTO(repository.list_all());
+    public ListAllDTO listAllServ(String userId){
+        return new ListAllDTO(repository.list_all(userId));
     }
 
-    public ListAllDTO createServ(final Todo newTodo) {
+    public ListAllDTO createServ(final Todo newTodo, String userId) {
 
         if (newTodo == null){
             log.warn("new Todo cannot be null!");
@@ -36,7 +36,7 @@ public class TodoService {
 
         boolean flag = repository.insert(newTodo);
         if(flag) log.info("새로운 할일 id:{}이 저장되었습니다.",newTodo.getId());
-        return flag ? listAllServ() : null;
+        return flag ? listAllServ(userId) : null;
     }
 
     public TodoDTO view_one(final String id) {
@@ -48,20 +48,19 @@ public class TodoService {
         return new TodoDTO(repository.view_one(id));
     }
 
-    public ListAllDTO delete(String id) {
+    public ListAllDTO delete(String id, String userId) {
         boolean flag = repository.delete(id);
-
         //삭제 실패할경우
         if(!flag){
             log.warn("delete fail!! not found id[{}]", id);
             throw new RuntimeException("delete fail!");
         }
-        return listAllServ();
+        return listAllServ(userId);
     }
     public ListAllDTO update(Todo toDo) {
 
         boolean flag = repository.modify(toDo);
 
-        return flag ? listAllServ() : new ListAllDTO();
+        return flag ? listAllServ(toDo.getUserId()) : new ListAllDTO();
     }
 }

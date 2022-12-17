@@ -21,6 +21,7 @@
     <select id="list_all" resultType="com.example.demo.todo.entity.Todo">
         SELECT id, userId, title, done, regDate
         FROM tbl_todo
+        WHERE userId =#{userId}
         ORDER BY regDate
     </select>
 
