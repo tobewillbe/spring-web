@@ -1,5 +1,6 @@
 package com.example.demo.todo.api;
 
+import com.example.demo.error.ErrorDTO;
 import com.example.demo.todo.dto.ListAllDTO;
 import com.example.demo.todo.dto.TodoDTO;
 import com.example.demo.todo.entity.Todo;
@@ -20,11 +21,11 @@ public class TodoApiController {
     private final TodoService service;
 
     // 할 일 목록 전체요청
-//    @GetMapping
-//    public ResponseEntity<?> todos(){
-//        log.info("/api/todos GET request!");
-//        return ResponseEntity.ok().body(service.listAllServ());
-//    }
+    @GetMapping
+    public ResponseEntity<?> todos(@AuthenticationPrincipal String userId){
+        log.info("/api/todos GET request!");
+        return ResponseEntity.ok().body(service.listAllServ(userId));
+    }
 
     @PostMapping // UserId
     public ResponseEntity<?> create(@AuthenticationPrincipal String userId,@RequestBody Todo newTodo){
