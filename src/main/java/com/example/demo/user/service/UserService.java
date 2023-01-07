@@ -48,4 +48,11 @@ public class UserService {
     public boolean isDuplicate(String email){
         return userRepository.existsByEmail(email);
     }
+
+    // 프로필 찾기
+    public String getProfilePath(String userId){
+        String profile = userRepository.findProfile(userId);
+        log.info("find profile path - {}", profile);
+        return profile;
+    }
 }

@@ -12,4 +12,6 @@ public interface UserRepository {
     boolean existsByEmail(String email);
 
     boolean register(UserEntity user);
+
+    String findProfile(String userId);
 }
