@@ -26,6 +26,7 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 !**/resources/application.properties
+!**/resources/application-deploy.properties
 
 ### NetBeans ###
 /nbproject/private/
